@@ -7,28 +7,16 @@ router.get('/', (req, res, next)=>{
 });
 
 router.post('/signup', function(req, res, next) {
+  var messages=['Hola desde signup con Sockets!'];
+     console.log(' Signup with Sockets'+ io.id);
+     io.emit('messages', messages);
   
-    //res.cookie('rememberme', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
-    //console.log(req);
-    /* req.login(user, function(err) {
-        if (err) {
-            console.log(user);
-            console.log(err);
-            return next(err); 
-        }
-        
-        res.cookie('remerberme','2',{maxAge: 60000});
-        
-        return res.redirect('/users/');
-      }); */
-      res.cookie('session','2');
-      res.send('ok');
-
+     io.on('nuevo-mensaje', function(data) {
+      console.log("desde el server: ",data);
+      });
+  
+    
   });
 
-  router.post('/signin',(req, res, next)=>{
-      res.send('aqui ira el registro');
-  });
+  module.exports = router;
 
-
-module.exports = router;
